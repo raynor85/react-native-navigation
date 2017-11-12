@@ -742,6 +742,27 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
       self.preferredContentSize = CGSizeMake([width floatValue], [height floatValue]);
     }
   }
+
+  UITabBar *tabBar = self.tabBarController.tabBar;
+
+  NSString *tabBarButtonColor = self.navigatorStyle[@"tabBarButtonColor"];
+  if (tabBarButtonColor)
+  {
+    UIColor *color = tabBarButtonColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarButtonColor] : nil;
+    tabBar.tintColor = color;
+  }
+  NSString *tabBarSelectedButtonColor = self.navigatorStyle[@"tabBarSelectedButtonColor"];
+  if (tabBarSelectedButtonColor)
+  {
+    UIColor *color = tabBarSelectedButtonColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarSelectedButtonColor] : nil;
+    tabBar.tintColor = color;
+  }
+  NSString *tabBarBackgroundColor = self.navigatorStyle[@"tabBarBackgroundColor"];
+  if (tabBarBackgroundColor)
+  {
+    UIColor *color = tabBarBackgroundColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarBackgroundColor] : nil;
+    tabBar.barTintColor = color;
+  }
 }
 
 - (BOOL)hidesBottomBarWhenPushed
