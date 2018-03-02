@@ -45,14 +45,6 @@ RCT_ENUM_CONVERTER(UIModalPresentationStyle,
 
 @end
 
-/// @@@ Tom
-
-RCCViewController *_rccViewController;
-NSString *_action;
-NSString *_animationType;
-
-/// @@@ Tom
-
 @implementation RCCManagerModule
 
 RCT_EXPORT_MODULE(RCCManager);
@@ -377,51 +369,11 @@ RCT_EXPORT_METHOD(
             controller.modalPresentationStyle = modalPresentationStyle;
         }
     }
-
-    /// @@@ Tom
-
-    #if true
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                selector:@selector(didAddReactComponent)
-                                                    name:@"DidAddReactComponent"
-        
-                                                object:nil];
-        _action = @"modal";
-        _rccViewController = (RCCViewController *)controller;
-        _animationType = [animationType copy];
-    #endif
     
-    return;
-
     [[RCCManagerModule lastModalPresenterViewController] presentViewController:controller
                                                                       animated:![animationType isEqualToString:@"none"]
                                                                     completion:^(){ resolve(nil); }];
 }
-
-- (void)didAddReactComponent
-{
-    // RCTAssertMainQueue();
-    // Clear the reactTag so it can be re-assigned
-    // self.reactTag = nil;
-    // NSLog(@"Hi, there");
-    
-    
-    if ([_action isEqualToString:@"modal"]) {
-        
-        if (_rccViewController == nil) {
-            return;
-        }
-        
-        // NSLog(@"Hi, its push!!");
-        
-        [[RCCManagerModule lastModalPresenterViewController] presentViewController:_rccViewController
-                                                                          animated:![_animationType isEqualToString:@"none"]
-                                                                        completion:^(){  }];
-        _action = @"";
-    }
-}
-
-/// @@@ Tom
 
 - (UIViewController *) getVisibleViewControllerFor:(UIViewController *)vc
 {
